@@ -17,6 +17,10 @@ Add a new entry immediately when something goes wrong — before moving on.
 
 ## Seeded rules (known gotchas for this stack)
 
+### Xcode warnings must be zero before committing
+**What happened:** Committed code with 4 Xcode warnings about MainActor isolation that were not caught because the CI workflow only checked for build success and test passes, not warnings.
+**Rule:** Always check for Xcode warnings after building: `xcodebuild build 2>&1 | grep 'warning:' | grep -v 'appintentsmetadataprocessor'`. Treat warnings as errors. The `/ci` command includes this check.
+
 ### Pulsar API uses snake_case JSON keys
 **What happened:** Anticipated from reading the Pulsar codebase (Alba serializer, Rails conventions).
 **Rule:** Every Codable model must define explicit `CodingKeys` mapping snake_case to camelCase. Set `decoder.keyDecodingStrategy = .convertFromSnakeCase` on the shared JSONDecoder as the default, but still define explicit CodingKeys for clarity and to catch mismatches.

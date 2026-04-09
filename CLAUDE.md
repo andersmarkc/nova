@@ -56,7 +56,7 @@ swiftlint --fix --config .swiftlint.yml
 
 ## Hard rules (universal — apply everywhere)
 
-- Build must succeed after every task. Do not proceed with compiler errors.
+- Build must succeed with zero warnings after every task. Xcode warnings are bugs — fix them before committing.
 - No UIKit. SwiftUI only. If a SwiftUI API gap is found, document it in lessons.md and discuss before importing UIKit.
 - No third-party HTTP library. All networking goes through `APIClient` using URLSession.
 - No Combine. Use `@Observable` macro, async/await, and AsyncSequence.

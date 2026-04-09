@@ -29,7 +29,7 @@ nonisolated struct Price: Decodable, Sendable {
 
 extension KeyedDecodingContainer {
     /// Decodes a Decimal that may arrive as either a JSON string or a JSON number.
-    func decodeDecimalFromString(forKey key: Key) throws -> Decimal {
+    nonisolated func decodeDecimalFromString(forKey key: Key) throws -> Decimal {
         if let stringValue = try? decode(String.self, forKey: key),
            let decimal = Decimal(string: stringValue) {
             return decimal
@@ -38,7 +38,7 @@ extension KeyedDecodingContainer {
     }
 
     /// Decodes an optional Decimal that may arrive as either a JSON string, number, or null.
-    func decodeOptionalDecimalFromString(forKey key: Key) throws -> Decimal? {
+    nonisolated func decodeOptionalDecimalFromString(forKey key: Key) throws -> Decimal? {
         if let stringValue = try? decode(String.self, forKey: key),
            let decimal = Decimal(string: stringValue) {
             return decimal
