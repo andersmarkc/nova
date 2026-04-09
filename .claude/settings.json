@@ -1,0 +1,82 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xcodebuild -scheme Nova:*)",
+      "Bash(xcodebuild -list:*)",
+      "Bash(swiftlint:*)",
+      "Bash(swift build:*)",
+      "Bash(swift test:*)",
+      "Bash(swift package:*)",
+      "Bash(xcrun simctl:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(git:*)",
+      "Bash(which:*)",
+      "Bash(brew info swiftlint:*)",
+      "Bash(plutil:*)"
+    ],
+    "deny": [
+      "Edit(Nova.xcodeproj/project.pbxproj)",
+      "Write(Nova.xcodeproj/project.pbxproj)",
+      "Edit(**/*.xcuserstate)",
+      "Write(**/*.xcuserstate)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.file_path // .new_path // empty' 2>/dev/null); if [ -n \"$FILE\" ] && echo \"$FILE\" | grep -qE '\\.swift$'; then swiftlint lint --quiet --path \"$FILE\" 2>/dev/null || true; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CMD=$(cat | jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$CMD\" | grep -qE 'rm -rf /(Users|Applications|System|Library)|git push.*--force.*main|git reset --hard'; then echo \"BLOCKED: Destructive command.\" >&2; exit 2; fi; exit 0"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(cat | jq -r '.tool_input.file_path // .tool_input.new_path // empty' 2>/dev/null); if echo \"$FILE\" | grep -qE '\\.pbxproj$'; then echo \"BLOCKED: Never edit .pbxproj manually. Use Xcode.\" >&2; exit 2; fi; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); ACTIVE=$(echo \"$INPUT\" | jq -r '.stop_hook_active' 2>/dev/null); if [ \"$ACTIVE\" = 'true' ]; then exit 0; fi; echo \"--- Session complete. Did you build and run tests? If not: xcodebuild -scheme Nova -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test ---\" >&2; exit 0",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"{\\\"additionalContext\\\": \\\"Current git branch: $(git branch --show-current 2>/dev/null || echo 'unknown'). Uncommitted changes: $(git status --porcelain 2>/dev/null | wc -l | tr -d ' ') files. Swift version: $(swift --version 2>/dev/null | head -1). Swiftlint: $(which swiftlint 2>/dev/null || echo 'NOT INSTALLED - run: brew install swiftlint').\\\"}\"",
+            "async": false
+          }
+        ]
+      }
+    ]
+  }
+}
