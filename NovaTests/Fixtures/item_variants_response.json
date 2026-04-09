@@ -1,0 +1,52 @@
+{
+  "item": {
+    "id": 42,
+    "name": "Letmaelk",
+    "slug": "letmaelk",
+    "description": "Frisk letmaelk med 1.5% fedt",
+    "image_url": "https://example.com/letmaelk.jpg"
+  },
+  "attribute_definitions": [
+    {
+      "name": "size",
+      "label": "Stoerrelse",
+      "data_type": "string",
+      "options": ["500ml", "1L", "2L"]
+    }
+  ],
+  "variants": [
+    {
+      "id": "pv_1",
+      "product_name": "Arla Letmaelk",
+      "variant_name": "1L",
+      "brand": "Arla",
+      "size": "1L",
+      "unit": "ml",
+      "ean": "5711953068881",
+      "image_url": "https://example.com/arla_1l.jpg",
+      "variant_attributes": { "size": "1000" },
+      "prices": [
+        {
+          "shop_id": 1,
+          "shop_name": "Netto",
+          "amount": "12.95",
+          "on_sale": false,
+          "sales_price": null,
+          "unit_price": "12.95",
+          "unit_type": "L",
+          "promotion_text": null
+        },
+        {
+          "shop_id": 3,
+          "shop_name": "Nemlig",
+          "amount": "11.95",
+          "on_sale": true,
+          "sales_price": "11.95",
+          "unit_price": "11.95",
+          "unit_type": "L",
+          "promotion_text": "Ugentilbud"
+        }
+      ]
+    }
+  ]
+}

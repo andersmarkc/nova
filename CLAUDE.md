@@ -80,6 +80,20 @@ swiftlint --fix --config .swiftlint.yml
 
 ---
 
+## Real API testing (after every new API method)
+
+After implementing each new PulsarAPI method, verify it works against the real Pulsar API:
+
+1. Start local Pulsar: `cd ~/RubymineProjects/pulsar && bin/dev`
+2. Run integration tests: `PULSAR_INTEGRATION=1 xcodebuild -scheme Nova -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing NovaTests 2>&1 | tail -40`
+3. If real API behavior differs from fixture JSON, update fixtures and document in @lessons.md
+4. Integration tests in `NovaTests/Integration/` are gated by `PULSAR_INTEGRATION` env var
+5. Normal test runs use mocks only (fast, no network). Integration tests require explicit opt-in.
+
+Base URL is in `Nova/Services/API/APIConfiguration.swift` — the single source of truth. Never hardcode the Pulsar URL anywhere else.
+
+---
+
 ## When you make a mistake
 
 Add a rule to @lessons.md immediately. Do not skip this step.

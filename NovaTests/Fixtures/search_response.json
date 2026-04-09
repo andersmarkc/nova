@@ -1,0 +1,39 @@
+{
+  "data": {
+    "hits": [
+      {
+        "id": "1",
+        "item_id": 42,
+        "item_name": "Letmaelk",
+        "brand": "Arla",
+        "variant_name": "1L",
+        "product_name": "Arla Letmaelk 1L",
+        "min_price": 12.95,
+        "on_sale": false,
+        "shop_ids": [1, 3],
+        "image_url": "https://example.com/milk.jpg",
+        "ean": "5711953068881"
+      },
+      {
+        "id": "2",
+        "item_id": 42,
+        "item_name": "Letmaelk",
+        "brand": "Thise",
+        "variant_name": "1L",
+        "product_name": "Thise Oeko Letmaelk 1L",
+        "min_price": 16.50,
+        "on_sale": true,
+        "shop_ids": [2],
+        "image_url": "https://example.com/thise.jpg",
+        "ean": "5711953068882"
+      }
+    ],
+    "facets": {}
+  },
+  "meta": {
+    "page": 1,
+    "per_page": 20,
+    "total": 2,
+    "query": "maelk"
+  }
+}

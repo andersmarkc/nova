@@ -85,6 +85,31 @@ final class MockURLProtocol: URLProtocol {
 
 ---
 
+## Integration Tests (Real API)
+
+Integration tests hit the real local Pulsar API. They are gated by an environment variable
+and skipped during normal test runs.
+
+```bash
+# 1. Start local Pulsar
+cd ~/RubymineProjects/pulsar && bin/dev
+
+# 2. Run integration tests
+PULSAR_INTEGRATION=1 xcodebuild -scheme Nova -sdk iphonesimulator \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing NovaTests 2>&1 | tail -40
+```
+
+Integration tests live in `NovaTests/Integration/` and use `PulsarTestClient` to get a dev token.
+They are gated with: `@Suite(.enabled(if: ProcessInfo.processInfo.environment["PULSAR_INTEGRATION"] != nil))`
+
+**After every new PulsarAPI method:**
+1. Write mock tests first (in `AllAPITests.swift`)
+2. Write integration test in `NovaTests/Integration/`
+3. Run both: normal tests + integration tests
+4. Document any API quirks in @lessons.md
+
+---
+
 ## Fixture JSON Rules
 
 - Copy response shape from Pulsar (snake_case keys)

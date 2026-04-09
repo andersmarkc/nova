@@ -59,13 +59,20 @@ Denmark only. All UI in Danish (primary) with English fallback. Currency is alwa
 ### Completed
 - [x] Xcode project created (Hello World template)
 - [x] Claude Code infrastructure (CLAUDE.md, settings, commands, docs)
+- [x] Directory structure set up per ARCHITECTURE.md
+- [x] SwiftLint configured (.swiftlint.yml)
+- [x] APIClient base (URLSession wrapper, JWT auth, error handling)
+- [x] APIConfiguration with base URL (single source of truth)
+- [x] All API models (SearchHit, ProductVariant, Price, etc.) with Codable + Decimal
+- [x] PulsarAPI methods (auth, search, suggestions, item variants)
+- [x] KeychainService + AuthManager (token storage and lifecycle)
+- [x] MockURLProtocol + 50 unit tests passing
+- [x] Integration test infrastructure (gated by PULSAR_INTEGRATION env var)
+- [x] Decimal+Currency extension (DKK formatting)
 
 ### Next Tasks (in order)
-1. Set up directory structure per ARCHITECTURE.md
-2. Configure SwiftLint (.swiftlint.yml)
-3. Create APIClient base (URLSession wrapper, JWT auth, error handling)
-4. Create auth flow (Apple Sign In -> Pulsar JWT)
-5. Create search screen (first real feature)
+1. Create auth flow (Apple Sign In -> Pulsar JWT)
+2. Create search screen (first real feature)
 6. Create item detail / variants screen
 7. Create shopping list feature
 8. Create family sharing

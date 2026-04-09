@@ -12,3 +12,12 @@ Run all checks and fix failures before proceeding.
 6. Report: what passed, what needed fixing.
 
 All four checks must pass before any commit. No exceptions.
+
+## Integration tests (optional, requires local Pulsar)
+
+```bash
+# Start Pulsar first: cd ~/RubymineProjects/pulsar && bin/dev
+PULSAR_INTEGRATION=1 xcodebuild -scheme Nova -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing NovaTests 2>&1 | tail -40
+```
+
+Run integration tests after adding new PulsarAPI methods. Not required for every commit.
