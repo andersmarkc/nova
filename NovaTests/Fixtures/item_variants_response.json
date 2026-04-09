@@ -1,45 +1,50 @@
 {
   "item": {
-    "id": 42,
-    "name": "Letmaelk",
-    "slug": "letmaelk",
-    "description": "Frisk letmaelk med 1.5% fedt",
-    "image_url": "https://example.com/letmaelk.jpg"
+    "id": 1242,
+    "name": "skummetmælk",
+    "slug": "skummetmaelk"
   },
   "attribute_definitions": [
     {
-      "name": "size",
-      "label": "Stoerrelse",
-      "data_type": "string",
-      "options": ["500ml", "1L", "2L"]
+      "name": "organic",
+      "label": "Organic",
+      "data_type": "boolean",
+      "options": {}
+    },
+    {
+      "name": "fat_percentage",
+      "label": "Fat percentage",
+      "data_type": "decimal",
+      "options": {}
     }
   ],
   "variants": [
     {
-      "id": "pv_1",
-      "product_name": "Arla Letmaelk",
-      "variant_name": "1L",
+      "id": 3734,
+      "product_name": "Arla Skummetmælk 0,1% fedt øko",
+      "product_slug": "arla-skummetmaelk-0-1-fedt-oko",
+      "variant_name": "1.0 l",
+      "variant_slug": "1-0-l",
       "brand": "Arla",
-      "size": "1L",
-      "unit": "ml",
-      "ean": "5711953068881",
-      "image_url": "https://example.com/arla_1l.jpg",
-      "variant_attributes": { "size": "1000" },
+      "size": "1.0",
+      "unit": "l",
+      "variant_attributes": {
+        "organic": true,
+        "section": "Mejeri & æg",
+        "fat_percentage": 0.1
+      },
+      "min_price": 12.95,
       "prices": [
+        {
+          "shop_id": 3,
+          "shop_name": "BilkatoGO",
+          "amount": 12.95,
+          "on_sale": false
+        },
         {
           "shop_id": 1,
           "shop_name": "Netto",
-          "amount": "12.95",
-          "on_sale": false,
-          "sales_price": null,
-          "unit_price": "12.95",
-          "unit_type": "L",
-          "promotion_text": null
-        },
-        {
-          "shop_id": 3,
-          "shop_name": "Nemlig",
-          "amount": "11.95",
+          "amount": 11.95,
           "on_sale": true,
           "sales_price": "11.95",
           "unit_price": "11.95",

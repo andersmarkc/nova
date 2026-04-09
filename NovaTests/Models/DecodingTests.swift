@@ -53,21 +53,21 @@ struct DecodingTests {
     @Test func decodesItemVariantsResponse() throws {
         let data = try FixtureLoader.load("item_variants_response")
         let response = try decoder.decode(ItemVariantsResponse.self, from: data)
-        #expect(response.item.id == 42)
-        #expect(response.item.name == "Letmaelk")
-        #expect(response.attributeDefinitions.count == 1)
+        #expect(response.item.id == 1242)
+        #expect(response.item.name == "skummetmælk")
+        #expect(response.attributeDefinitions.count == 2)
         #expect(response.variants.count == 1)
 
         let variant = response.variants[0]
-        #expect(variant.id == "pv_1")
+        #expect(variant.id == 3734)
         #expect(variant.brand == "Arla")
         #expect(variant.prices.count == 2)
 
-        let nettoPrice = variant.prices[0]
-        #expect(nettoPrice.shopId == 1)
-        #expect(nettoPrice.shopName == "Netto")
-        #expect(nettoPrice.amount == Decimal(string: "12.95"))
-        #expect(nettoPrice.onSale == false)
+        let bilkaPrice = variant.prices[0]
+        #expect(bilkaPrice.shopId == 3)
+        #expect(bilkaPrice.shopName == "BilkatoGO")
+        #expect(bilkaPrice.amount == Decimal(string: "12.95"))
+        #expect(bilkaPrice.onSale == false)
     }
 
     @Test func priceAmountsAreDecimal() throws {
@@ -77,5 +77,14 @@ struct DecodingTests {
         // Verify it's Decimal, not Double
         let formatted = "\(price.amount)"
         #expect(formatted == "12.95")
+    }
+
+    @Test func variantAttributesHandleMixedTypes() throws {
+        let data = try FixtureLoader.load("item_variants_response")
+        let response = try decoder.decode(ItemVariantsResponse.self, from: data)
+        let attrs = response.variants[0].variantAttributes
+        #expect(attrs != nil)
+        #expect(attrs?["organic"]?.stringValue == "true")
+        #expect(attrs?["section"]?.stringValue == "Mejeri & æg")
     }
 }

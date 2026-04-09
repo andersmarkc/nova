@@ -18,5 +18,5 @@ nonisolated struct AttributeDefinition: Decodable, Sendable {
     let name: String
     let label: String
     let dataType: String
-    let options: [String]?
+    let options: [String: AnyCodableValue]?
 }

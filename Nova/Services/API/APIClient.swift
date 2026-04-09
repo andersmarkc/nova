@@ -87,6 +87,6 @@ nonisolated final class APIClient: Sendable {
     }
 }
 
-private nonisolated struct PulsarErrorBody: Decodable {
+nonisolated private struct PulsarErrorBody: Decodable {
     let errors: [String]
 }

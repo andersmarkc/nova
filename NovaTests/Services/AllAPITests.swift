@@ -176,9 +176,9 @@ struct AllAPITests {
 
         @Test func itemVariantsReturnsData() async throws {
             MockURLProtocol.requestHandler = MockResponse.fixture("item_variants_response")
-            let result = try await api.itemVariants(itemId: 42, token: "t")
-            #expect(result.item.id == 42)
-            #expect(result.item.name == "Letmaelk")
+            let result = try await api.itemVariants(itemId: 1242, token: "t")
+            #expect(result.item.id == 1242)
+            #expect(result.item.name == "skummetmælk")
             #expect(result.variants.count == 1)
             #expect(result.variants[0].prices.count == 2)
         }

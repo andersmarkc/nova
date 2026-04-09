@@ -17,6 +17,22 @@ Add a new entry immediately when something goes wrong — before moving on.
 
 ## Seeded rules (known gotchas for this stack)
 
+### Real Pulsar API: ProductVariant.id is Int, not String
+**What happened:** Fixture used `"id": "pv_1"` (string) but real API returns `"id": 3734` (integer). Search hits use string IDs from Typesense, but item variant IDs are integers from PostgreSQL.
+**Rule:** Always verify fixture JSON against the real API before committing. SearchHit.id is String (Typesense), ProductVariant.id is Int (PostgreSQL).
+
+### Real Pulsar API: variant_attributes has mixed value types
+**What happened:** Fixture used `[String: String]` for variant_attributes, but real API returns `{"organic": true, "section": "text", "fat_percentage": 0.1}` — a mix of Bool, String, and Double values.
+**Rule:** Use `AnyCodableValue` enum for JSON fields with mixed value types. Never assume all values are the same type.
+
+### Real Pulsar API: price amounts are JSON numbers, not strings
+**What happened:** lessons.md said "DKK prices are decimal strings in JSON" but the real API returns `"amount": 12.95` (number), not `"amount": "12.95"` (string). Our `decodeDecimalFromString` helper handles both, which is correct.
+**Rule:** Keep the flexible decoder that handles both string and number Decimals. The API may change serialization.
+
+### Real Pulsar API: suggestions endpoint returns 500
+**What happened:** `GET /api/v1/search/suggestions?q=mae` returns a 500 error on production. This is a Pulsar server bug, not a Nova issue.
+**Rule:** Document Pulsar API bugs found during real testing. This needs to be fixed in Pulsar.
+
 ### Xcode warnings must be zero before committing
 **What happened:** Committed code with 4 Xcode warnings about MainActor isolation that were not caught because the CI workflow only checked for build success and test passes, not warnings.
 **Rule:** Always check for Xcode warnings after building: `xcodebuild build 2>&1 | grep 'warning:' | grep -v 'appintentsmetadataprocessor'`. Treat warnings as errors. The `/ci` command includes this check.
