@@ -92,7 +92,7 @@ and skipped during normal test runs.
 
 ```bash
 # 1. Start local Pulsar
-cd ~/RubymineProjects/pulsar && bin/dev
+cd ~/RubymineProjects/billigst_apps/pulsar && bin/dev
 
 # 2. Run integration tests
 PULSAR_INTEGRATION=1 xcodebuild -scheme Nova -sdk iphonesimulator \

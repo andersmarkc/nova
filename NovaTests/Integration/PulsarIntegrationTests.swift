@@ -6,7 +6,7 @@ import Testing
 /// Gated by PULSAR_INTEGRATION env var — skipped during normal test runs.
 ///
 /// To run:
-/// 1. Start local Pulsar: `cd ~/RubymineProjects/pulsar && bin/dev`
+/// 1. Start local Pulsar: `cd ~/RubymineProjects/billigst_apps/pulsar && bin/dev`
 /// 2. Run: PULSAR_INTEGRATION=1 xcodebuild -scheme Nova \
 ///    -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
 ///    test -only-testing NovaTests

@@ -17,7 +17,7 @@ All five checks must pass before any commit. No exceptions.
 ## Integration tests (optional, requires local Pulsar)
 
 ```bash
-# Start Pulsar first: cd ~/RubymineProjects/pulsar && bin/dev
+# Start Pulsar first: cd ~/RubymineProjects/billigst_apps/pulsar && bin/dev
 PULSAR_INTEGRATION=1 xcodebuild -scheme Nova -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing NovaTests 2>&1 | tail -40
 ```
 
